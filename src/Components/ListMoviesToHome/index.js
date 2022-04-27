@@ -1,19 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { API_KEY } from '../../Api';
+import { API_KEY, API } from '../../Api';
 import { Container, Movie, MovieList } from './styles';
 
 function ListMoviesToHome() {
   const [movies, setMovies] = useState([]);
   const image_path = 'https://image.tmdb.org/t/p/w500';
 
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
-    )
-      .then((response) => response.json())
-      .then((data) => setMovies(data.results));
+  const loadMovies = useCallback(async () => {
+    const { data } = await API.get(
+      `3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+    );
+
+    setMovies(data.results);
   }, []);
+
+  useEffect(() => {
+    loadMovies();
+  }, [loadMovies]);
 
   return (
     <Container>
