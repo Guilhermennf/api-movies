@@ -30,4 +30,4 @@ yarn start
 
 Neste projeto, foi feita uma integração com API's externas do "themoviedb" com styled-components e react-router-dom.
 
-Link: https://api-movies-one.vercel.app/
+Link do deploy: https://api-movies-one.vercel.app/
